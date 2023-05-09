@@ -10,6 +10,8 @@ class prime extends Model
     use HasFactory;
     public $timestamps = false;
     protected $primaryKey = 'idPrime';
+
+    protected $fillable= ['idPrime','datePrime','montantPrime','descriptionPrime','idVisiteur'];
     protected $table = 'prime';
 
 /*public function visiteur()

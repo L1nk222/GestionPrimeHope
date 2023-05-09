@@ -18,6 +18,9 @@
                 </div>
             </div>
             <div class="card">
+                @isset($primes)
+                <div class="card-header"><a href="{{url()->current()}}/add">Nouvelle prime</a></div>
+                @endisset
                 <table>
                 @isset($regions)
                     @foreach ($regions as $region)
