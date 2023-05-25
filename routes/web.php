@@ -22,11 +22,24 @@ Route::get('/login', 'App\Http\Controllers\Auth\LoginController@showLoginForm')-
 Auth::routes();
 
 Route::get('/secteur', [App\Http\Controllers\SecteurController::class, 'showAll'])->name('secteur');
-Route::get('/region', [App\Http\Controllers\RegionController::class, 'showAll'])->name('region');
+//Route::get('/region', [App\Http\Controllers\RegionController::class, 'showAll'])->name('region');
 Route::get('/visiteur', [App\Http\Controllers\VisiteurController::class, 'showAll'])->name('visiteur');
 Route::get('/prime');
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/home/{secteur?}/{region?}/{visiteur?}', [App\Http\Controllers\HomeController::class, 'show'])->name('home');
 
-Route::get('/home/{secteur}/{region}/{visiteur}/add',[App\Http\Controllers\VisiteurController::class, 'showForm'])->name('formAddPrime');
-Route::post('/home/{secteur}/{region}/{visiteur}/add',[App\Http\Controllers\VisiteurController::class, 'storePrime'])->name('storeAddPrime');
+Route::middleware('redirect.user')->group(function (){
+    Route::get('/home/{secteur?}/{region?}/{visiteur?}', [App\Http\Controllers\HomeController::class, 'show'])->name('home');
+
+    // Route::get('/home/{secteur}',[App\Http\Controllers\HomeController::class, 'show'])->name('homeDelegue')
+    // ->middleware('redirect.delegue','redirect.responsable');
+
+    // Route::get('/home/{secteur}/{region?}/',[App\Http\Controllers\HomeController::class, 'show'])->name('homeDelegue')
+    // ->middleware('redirect.delegue','redirect.responsable');
+    Route::get('/region/{visiteur?}',[App\Http\Controllers\HomeController::class, 'show'])->name('homeDelegue');
+
+    Route::get('/home/{secteur}/{region}/{visiteur}/add',[App\Http\Controllers\VisiteurController::class, 'showForm'])->name('formAddPrime');
+    Route::post('/home/{secteur}/{region}/{visiteur}/add',[App\Http\Controllers\VisiteurController::class, 'storePrime'])->name('storeAddPrime');
+
+});
+Route::get('/visiteurPrime',[App\Http\Controllers\VisiteurController::class, 'showVisiteurPrime'])->name('VisiteurPrime');
+

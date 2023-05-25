@@ -20,4 +20,8 @@ class region extends Model
     public function visiteur(){
         return $this->hasMany(visiteur::class, 'idRegion','idRegion');
     }
+
+    public function User(){
+        return $this->belongsTo(User::class,'idRegion','idRegion');
+    }
 }

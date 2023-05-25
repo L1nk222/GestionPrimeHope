@@ -41,4 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function visiteur(){
+        return $this->hasOne(visiteur::class,'idVisiteur','idVisiteur');
+    }
+    public function region(){
+        return $this->hasOne(region::class,'idRegion','idRegion');
+    }
 }

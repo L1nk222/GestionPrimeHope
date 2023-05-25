@@ -60,4 +60,10 @@ class VisiteurController extends Controller
         return redirect($url)->with('success', 'Transaction enregistrée avec succès.');
     }
 
+    public function showVisiteurPrime(){
+        $visiteur=auth()->user()->visiteur;
+        $primes=prime::where('idVisiteur',$visiteur->idVisiteur)->get();
+        return view('visiteurPrime',['primes' => $primes]);
+    }
+
 }
