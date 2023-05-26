@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\prime;
 use App\Models\visiteur;
 use App\Models\region;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class VisiteurController extends Controller
@@ -65,5 +66,8 @@ class VisiteurController extends Controller
         $primes=prime::where('idVisiteur',$visiteur->idVisiteur)->get();
         return view('visiteurPrime',['primes' => $primes]);
     }
+
+
+
 
 }

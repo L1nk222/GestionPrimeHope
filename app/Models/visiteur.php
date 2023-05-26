@@ -13,6 +13,7 @@ class visiteur extends Model
     protected $primaryKey = 'idVisiteur';
     protected $table = 'visiteur';
     protected $fillable = [
+        'idVisiteur',
         'nomVisiteur',
         'idRegion'
     ];

@@ -28,7 +28,9 @@ Route::get('/prime');
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('redirect.user')->group(function (){
-    Route::get('/home/{secteur?}/{region?}/{visiteur?}', [App\Http\Controllers\HomeController::class, 'show'])->name('home');
+    Route::get('/home/{secteur?}/{region?}/{visiteur?}', [App\Http\Controllers\HomeController::class, 'show'])
+    ->where(['visiteur'=>'[0-9]+'])
+    ->name('home');
 
     // Route::get('/home/{secteur}',[App\Http\Controllers\HomeController::class, 'show'])->name('homeDelegue')
     // ->middleware('redirect.delegue','redirect.responsable');
@@ -39,6 +41,8 @@ Route::middleware('redirect.user')->group(function (){
 
     Route::get('/home/{secteur}/{region}/{visiteur}/add',[App\Http\Controllers\VisiteurController::class, 'showForm'])->name('formAddPrime');
     Route::post('/home/{secteur}/{region}/{visiteur}/add',[App\Http\Controllers\VisiteurController::class, 'storePrime'])->name('storeAddPrime');
+    Route::get('/home/{secteur}/{region}/add',[App\Http\Controllers\RegionController::class, 'showFormNewUser'])->name('newUserForm');
+    Route::post('/home/{secteur}/{region}/add',[App\Http\Controllers\RegionController::class, 'StoreUser'])->name('newUserStore');
 
 });
 Route::get('/visiteurPrime',[App\Http\Controllers\VisiteurController::class, 'showVisiteurPrime'])->name('VisiteurPrime');

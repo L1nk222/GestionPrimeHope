@@ -15,6 +15,11 @@ class RedirectResponsable
      */
     public function handle(Request $request, Closure $next): Response
     {
+
+        if (auth()->check() && isset(auth()->user()->idSecteur) ) {
+            return redirect()->route('VisiteurPrime');
+            //return $next($request);
+        }
         return $next($request);
     }
 }
