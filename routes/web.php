@@ -32,18 +32,23 @@ Route::middleware('redirect.user')->group(function (){
     ->where(['visiteur'=>'[0-9]+'])
     ->name('home');
 
-    // Route::get('/home/{secteur}',[App\Http\Controllers\HomeController::class, 'show'])->name('homeDelegue')
-    // ->middleware('redirect.delegue','redirect.responsable');
-
-    // Route::get('/home/{secteur}/{region?}/',[App\Http\Controllers\HomeController::class, 'show'])->name('homeDelegue')
-    // ->middleware('redirect.delegue','redirect.responsable');
     Route::get('/region/{visiteur?}',[App\Http\Controllers\HomeController::class, 'show'])->name('homeDelegue');
 
     Route::get('/home/{secteur}/{region}/{visiteur}/add',[App\Http\Controllers\VisiteurController::class, 'showForm'])->name('formAddPrime');
     Route::post('/home/{secteur}/{region}/{visiteur}/add',[App\Http\Controllers\VisiteurController::class, 'storePrime'])->name('storeAddPrime');
+
+    Route::get('/home/{secteur}/{region}/{visiteur}/{prime}',[App\Http\Controllers\VisiteurController::class, 'updatePrimeForm'])
+    ->where(['prime'=>'[0-9]+'])->name('updatePrimeForm');
+
+    Route::post('/home/{secteur}/{region}/{visiteur}/{prime}',[App\Http\Controllers\VisiteurController::class, 'updatePrimeStore'])
+    ->where(['prime'=>'[0-9]+'])->name('updatePrimeStore');
+
     Route::get('/home/{secteur}/{region}/add',[App\Http\Controllers\RegionController::class, 'showFormNewUser'])->name('newUserForm');
     Route::post('/home/{secteur}/{region}/add',[App\Http\Controllers\RegionController::class, 'StoreUser'])->name('newUserStore');
 
+    // Route::get('/home/{secteur?}/{region?}/{visiteur?}/',[App\Http\Controllers\HomeController::class, 'recherche'])
+    // ->where(request()->has('term'))
+    // ->name('recherche');
 });
 Route::get('/visiteurPrime',[App\Http\Controllers\VisiteurController::class, 'showVisiteurPrime'])->name('VisiteurPrime');
 

@@ -29,9 +29,20 @@
                     @isset($primes)
                     <a href="{{url()->current()}}/add">Nouvelle prime</a>
                     @endisset
-                    @isset($regions)
+                    {{-- @isset($regions)
                     {{$regions[0]->idSecteur}}
-                    @endisset
+                    @endisset --}}
+                    @empty($secteurs)
+                    <a href="{{url()->previous()}}"><=</a>
+                    @endempty
+
+                    <form action="{{ url()->current() }}" method="GET">
+                        <input type="text" name="term" placeholder="Rechercher...">
+                        <button type="submit">Rechercher</button>
+                    </form>
+
+
+
                 </div>
 
 
@@ -72,8 +83,8 @@
                             <td>{{$prime->idPrime}}</td>
                             <td>{{$prime->datePrime}}</td>
                             <td>{{$prime->descriptionPrime}}</td>
-
                             <td>{{$prime->montantPrime}}</td>
+                            <td><a href="{{url()->current()}}/{{$prime->idPrime}}">Modifier</a></td>
                         </tr>
                     @endforeach
                 @endisset

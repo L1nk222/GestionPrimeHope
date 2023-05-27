@@ -67,7 +67,38 @@ class VisiteurController extends Controller
         return view('visiteurPrime',['primes' => $primes]);
     }
 
+    public function updatePrimeForm(Request $request){
+        $visiteur = visiteur::find($request->segment(4));
+        $prime = prime::find($request->segment(5));
+        return view('formAddPrime',['visiteur' => $visiteur,'prime'=> $prime]);
+
+    }
+
+    public function updatePrimeStore(Request $request){
+        $validatedData = $request->validate([
+            'date' => 'required|date',
+            'amount' => 'required|numeric',
+            'description' => 'required|string|max:255',
+        ]);
+
+        $prime=prime::find($request->idPrime);
+
+            $prime->idPrime=$request->idPrime;
+            $prime->datePrime =$validatedData['date'];
+            $prime->montantPrime = $validatedData['amount'];
+            $prime->descriptionPrime = $validatedData['description'];
+            $prime->idVisiteur= $request->idVisiteur;
+
+        // Enregistrement de la transaction dans la base de données
+        $prime->save();
 
 
+        $segments=explode('/',url()->current());
+        array_pop($segments);
+        $url=implode('/',$segments);
+        // Redirection vers la page de confirmation ou la liste des transactions
+        return redirect($url)->with('success', 'Transaction enregistrée avec succès.');
+
+    }
 
 }
