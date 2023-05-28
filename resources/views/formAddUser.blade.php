@@ -6,11 +6,10 @@
         <div class="col-md-8">
             <div class="card">
                 @isset($visiteur)
-                <a href="{{ url(substr(request()->url(), 0, strrpos(substr(request()->url(), 0, strrpos(request()->url(), '/')), '/'))) }}">Revenir en arrière</a>
-
+                <a href="{{ url(substr(request()->url(), 0, strrpos(substr(request()->url(), 0, strrpos(request()->url(), '/')), '/'))) }}" class="btn btn-secondary">Revenir en arrière</a>
                 @endisset
                 @empty($visiteur)
-                <a href="{{ url(substr(request()->url(), 0, strrpos(request()->url(), '/'))) }}">Revenir en arrière</a>
+                <a href="{{ url(substr(request()->url(), 0, strrpos(request()->url(), '/'))) }}" class="btn btn-secondary">Revenir en arrière</a>
                 @endempty
 
                 <div class="card-header">Nouvel utilisateur</div>
@@ -41,6 +40,7 @@
                         @isset($user)
                         <input type="hidden" id="id" name="id"value="{{$user->id}}">
                         @endisset
+                        <br>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Enregistrer</button>
                         </div>

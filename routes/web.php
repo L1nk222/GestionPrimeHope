@@ -32,27 +32,41 @@ Route::middleware('redirect.user')->group(function (){
     ->where(['visiteur'=>'[0-9]+'])
     ->name('home');
 
-    Route::get('/region/{visiteur?}',[App\Http\Controllers\HomeController::class, 'show'])->name('homeDelegue');
+    // Route::get('/region/{visiteur?}',[App\Http\Controllers\HomeController::class, 'show'])->name('homeDelegue');
 
+    //route pour ajouter une prime
     Route::get('/home/{secteur}/{region}/{visiteur}/add',[App\Http\Controllers\VisiteurController::class, 'showForm'])->name('formAddPrime');
     Route::post('/home/{secteur}/{region}/{visiteur}/add',[App\Http\Controllers\VisiteurController::class, 'storePrime'])->name('storeAddPrime');
 
-
-    Route::get('/home/{secteur}/{region}/{visiteur}/{prime}',[App\Http\Controllers\VisiteurController::class, 'updatePrimeForm'])
+    //route pour modifier une prime
+    Route::get('/home/{secteur}/{region}/{visiteur}/{prime}/update',[App\Http\Controllers\VisiteurController::class, 'updatePrimeForm'])
     ->where(['prime'=>'[0-9]+'])->name('updatePrimeForm');
-
-    Route::post('/home/{secteur}/{region}/{visiteur}/{prime}',[App\Http\Controllers\VisiteurController::class, 'updatePrimeStore'])
+    Route::post('/home/{secteur}/{region}/{visiteur}/{prime}/update',[App\Http\Controllers\VisiteurController::class, 'updatePrimeStore'])
     ->where(['prime'=>'[0-9]+'])->name('updatePrimeStore');
 
+    //route pour supprimer une prime
+    Route::get('/home/{secteur}/{region}/{visiteur}/{prime}/delete',[App\Http\Controllers\VisiteurController::class, 'showFormDeletePrime'])
+    ->where(['prime'=>'[0-9]+'])->name('deletePrimeForm');
+    Route::post('/home/{secteur}/{region}/{visiteur}/{prime}/delete',[App\Http\Controllers\VisiteurController::class, 'DeletePrime'])
+    ->where(['prime'=>'[0-9]+'])->name('deletePrimeStore');
+
+    //route pour ajouter un visiteur
     Route::get('/home/{secteur}/{region}/add',[App\Http\Controllers\RegionController::class, 'showFormNewUser'])->name('newUserForm');
     Route::post('/home/{secteur}/{region}/add',[App\Http\Controllers\RegionController::class, 'StoreUser'])->name('newUserStore');
 
+    //route pour modifier un visiteur
     Route::get('/home/{secteur}/{region}/{visiteur}/update',[App\Http\Controllers\RegionController::class, 'showFormUpdateUser'])->name('updateUserForm');
     Route::post('/home/{secteur}/{region}/{visiteur}/update',[App\Http\Controllers\RegionController::class, 'StoreUpdateUser'])->name('updateUserStore');
+
+    //Route pour supprimer un visiteur
+    Route::get('/home/{secteur}/{region}/{visiteur}/delete',[App\Http\Controllers\RegionController::class,'showFormDeleteUser'])->name('deleteUserForm');
+    Route::post('/home/{secteur}/{region}/{visiteur}/delete',[App\Http\Controllers\RegionController::class,'deleteUser'])->name('deleteUserStore');
 
     // Route::get('/home/{secteur?}/{region?}/{visiteur?}/',[App\Http\Controllers\HomeController::class, 'recherche'])
     // ->where(request()->has('term'))
     // ->name('recherche');
 });
+
+//Route par défaut des visiteurs
 Route::get('/visiteurPrime',[App\Http\Controllers\VisiteurController::class, 'showVisiteurPrime'])->name('VisiteurPrime');
 

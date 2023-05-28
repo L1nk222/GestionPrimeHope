@@ -25,20 +25,24 @@
 
                 <div class="card-header">
                     @isset($primes)
-                    <a href="{{url()->current()}}/add">Nouvelle prime</a>
-                    @endisset
-                    @isset($primes)
-                    <a href="{{ url(substr(request()->url(), 0, strrpos(request()->url(), '/'))) }}">Revenir en arrière</a>
+                    <a href="{{ url(substr(request()->url(), 0, strrpos(request()->url(), '/'))) }}" class="btn btn-secondary">Revenir en arrière</a>
+                    <a href="{{url()->current()}}/add" class="btn btn-info ">Nouvelle prime</a>
+                    <br>
+                    <br>
+
                     @endisset
 
+                    @isset($visiteurs)
+                    <a href="{{ url()->current()}}/add " class="btn btn-info" >Ajouter un nouveau compte</a>
+                    <br>
+                    <br>
+                    @endisset
 
                     <form action="{{ url()->current() }}" method="GET">
                         <input type="text" name="term" placeholder="Rechercher...">
                         <button type="submit">Rechercher</button>
                     </form>
-                    @isset($visiteurs)
-                    <a href="{{ url()->current()}}/add " class="button">ajouter un nouveau compte</a>
-                    @endisset
+
 
 
 
@@ -78,10 +82,11 @@
                                 {{$visiteur->idVisiteur}}
                             </td>
                             <td>
-                                {{$visiteur->nomVisiteur}}
+                                <a href="{{url()->current()}}/{{$visiteur->idVisiteur}}">{{$visiteur->nomVisiteur}}</a>
                             </td>
-                                <td><a href="{{url()->current()}}/{{$visiteur->idVisiteur}}">voir les primes</a></td>
-                                <td><a href="{{url()->current()}}/{{$visiteur->idVisiteur}}/update">Modifier</a></td>
+
+                            <td><a href="{{url()->current()}}/{{$visiteur->idVisiteur}}/update" class="btn btn-success">Modifier</a></td>
+                            <td><a href="{{url()->current()}}/{{$visiteur->idVisiteur}}/delete"  class="btn btn-danger">Supprimer</button></td>
 
                         </tr>
                     @endforeach
@@ -100,7 +105,8 @@
                             <td>{{$prime->datePrime}}</td>
                             <td>{{$prime->descriptionPrime}}</td>
                             <td>{{$prime->montantPrime}}</td>
-                            <td><a href="{{url()->current()}}/{{$prime->idPrime}}">Modifier</a></td>
+                            <td><a href="{{url()->current()}}/{{$prime->idPrime}}/update" class="btn btn-success">Modifier</a></td>
+                            <td><a href="{{url()->current()}}/{{$prime->idPrime}}/delete"  class="btn btn-danger">Supprimer</button></td>
                         </tr>
                     @endforeach
                 @endisset

@@ -5,7 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <a href="{{ url(substr(request()->url(), 0, strrpos(request()->url(), '/'))) }}">Revenir en arrière</a>
+                @empty($prime)
+                <a href="{{ url(substr(request()->url(), 0, strrpos(request()->url(), '/'))) }}" class="btn btn-secondary">Revenir en arrière</a>
+                @endempty
+                @isset($prime)
+                <a href="{{ url(substr(request()->url(), 0, strrpos(substr(request()->url(), 0, strrpos(request()->url(), '/')), '/'))) }}" class="btn btn-secondary">Revenir en arrière</a>
+                @endisset
                 <div class="card-header">Prime pour: {{$visiteur->nomVisiteur }}</div>
 
                 <div class="card-body">
@@ -32,9 +37,12 @@
                         <input type="hidden" id="idPrime" name="idPrime"value="{{$prime->idPrime}}">
                         @endisset
                         <input type="hidden" id="idVisiteur" name="idVisiteur"value="{{$visiteur->idVisiteur}}">
+                        <br>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Enregistrer</button>
+
                         </div>
+
 
                     </form>
 

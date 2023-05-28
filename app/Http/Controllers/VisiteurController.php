@@ -95,10 +95,28 @@ class VisiteurController extends Controller
 
         $segments=explode('/',url()->current());
         array_pop($segments);
+        array_pop($segments);
         $url=implode('/',$segments);
         // Redirection vers la page de confirmation ou la liste des transactions
         return redirect($url)->with('success', 'Transaction enregistrée avec succès.');
 
+    }
+
+    public function showFormDeletePrime(){
+        return view('formDeletePrime');
+    }
+
+    public function DeletePrime(Request $request){
+
+        $prime=prime::find($request->idPrime);
+        $prime->delete();
+
+        $segments=explode('/',url()->current());
+        array_pop($segments);
+        array_pop($segments);
+        $url=implode('/',$segments);
+        // Redirection vers la page de confirmation ou la liste des transactions
+        return redirect($url)->with('success', 'Transaction enregistrée avec succès.');
     }
 
 }

@@ -26,7 +26,7 @@ class RegionController extends Controller
 
     public function showAll(){
         $regionAll=region::all();
-        return view('region',['regionAll' => $regionAll]);;
+        return view('region',['regionAll' => $regionAll]);
     }
 
     public function findIdSecteur(){
@@ -115,6 +115,26 @@ class RegionController extends Controller
 
 
     }
+
+    public function showFormDeleteUser(Request $request){
+        return view('formDeleteUser');
+    }
+    public function deleteUser(Request $request){
+
+
+        $visiteur=visiteur::find($request->idVisiteur);
+        $user=User::find($visiteur->user->id);
+        $user->delete();
+        $visiteur->delete();
+
+        $segments=explode('/',url()->current());
+        array_pop($segments);
+        array_pop($segments);
+        $url=implode('/',$segments);
+        // Redirection vers la page de confirmation ou la liste des transactions
+        return redirect($url)->with('success', 'Transaction enregistrée avec succès.');
+    }
+
 
 
 }
