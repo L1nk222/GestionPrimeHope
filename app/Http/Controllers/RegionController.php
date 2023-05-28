@@ -78,4 +78,43 @@ class RegionController extends Controller
         return redirect($url)->with('success', 'Transaction enregistrée avec succès.');
 
     }
+
+    public function showFormUpdateUser(Request $request){
+
+        $visiteur = visiteur::find($request->segment(4));
+        $user=User::find($visiteur->user->id);
+        $region = region::find($request->segment(3));
+        return view('formAddUser',['visiteur'=>$visiteur,'region'=>$region,'user'=>$user]);
+    }
+
+    public function StoreUpdateUser(Request $request){
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        $user=User::find($request->id);
+        $visiteur=visiteur::find($request->segment(4));
+
+
+        $user->name=$validatedData['name'];
+        $user->email=$validatedData['email'];
+        $user->password=bcrypt($validatedData['password']);
+        $visiteur->nomVisiteur=$validatedData['name'];
+
+        $visiteur->save();
+        $user->save();
+
+        $segments=explode('/',url()->current());
+        array_pop($segments);
+        array_pop($segments);
+        $url=implode('/',$segments);
+        // Redirection vers la page de confirmation ou la liste des transactions
+        return redirect($url)->with('success', 'Transaction enregistrée avec succès.');
+
+
+    }
+
+
 }

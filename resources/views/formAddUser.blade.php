@@ -5,7 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                @isset($visiteur)
+                <a href="{{ url(substr(request()->url(), 0, strrpos(substr(request()->url(), 0, strrpos(request()->url(), '/')), '/'))) }}">Revenir en arrière</a>
+
+                @endisset
+                @empty($visiteur)
                 <a href="{{ url(substr(request()->url(), 0, strrpos(request()->url(), '/'))) }}">Revenir en arrière</a>
+                @endempty
+
                 <div class="card-header">Nouvel utilisateur</div>
 
                 <div class="card-body">
@@ -17,12 +24,12 @@
 
                         <div class="form-group">
                             <label for="name">Nom :</label>
-                            <input type="text" id="name" name="name" class="form-control" required>
+                            <input type="text" id="name" name="name" class="form-control" @isset($visiteur) value="{{$visiteur->nomVisiteur}}"@endisset required>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Adresse email :</label>
-                            <input type="text" id="email" name="email" class="form-control" required>
+                            <input type="text" id="email" name="email" class="form-control"@isset($user) value="{{$user->email}}" @endisset required>
                         </div>
 
                         <div class="form-group">
@@ -31,8 +38,9 @@
                         </div>
 
                         {{-- <input type="hidden" id="idRegion" name="idRegion"value="{{$idRegion}}"> --}}
-
-                        {{-- <input type="hidden" id="idVisiteur" name="idVisiteur"value="{{$idVisiteur}}"> --}}
+                        @isset($user)
+                        <input type="hidden" id="id" name="id"value="{{$user->id}}">
+                        @endisset
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Enregistrer</button>
                         </div>

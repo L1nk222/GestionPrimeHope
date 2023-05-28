@@ -50,14 +50,14 @@
 
     <body>
         <div class="container">
-            <h1>Bienvenue au laboratoire GSB </h1>
+            <h1>Bienvenue sur le gestionnaire de prime des laboratoires GSB </h1>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ligula et nulla pulvinar, nec aliquet velit consectetur. Proin vulputate iaculis nisl, vel convallis lorem gravida eu.</p>
+            <p>Avant d'aller plus loin merci de vous connecter</p>
 
             @if (Route::has('login'))
                 <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
                     @auth
-                        <a href="{{ url('/home') }}" class="button">Home</a>
+                        <a href="{{ url('/home') }}" class="button">Accueil</a>
                     @else
                         <a href="{{ route('login') }}" class="button">Connexion</a>
 

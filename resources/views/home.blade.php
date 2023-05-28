@@ -17,9 +17,7 @@
                     {{ __('You are logged in!') }}
                 </div>
             </div> --}}
-            @isset($visiteurs)
-            <a href="{{ url()->current()}}/add " class="button">ajouter un nouveau compte</a>
-            @endisset
+
             <div class="card">
                 @isset(Auth::user()->idVisiteur)
 
@@ -32,10 +30,16 @@
                     @isset($primes)
                     <a href="{{ url(substr(request()->url(), 0, strrpos(request()->url(), '/'))) }}">Revenir en arrière</a>
                     @endisset
+
+
                     <form action="{{ url()->current() }}" method="GET">
                         <input type="text" name="term" placeholder="Rechercher...">
                         <button type="submit">Rechercher</button>
                     </form>
+                    @isset($visiteurs)
+                    <a href="{{ url()->current()}}/add " class="button">ajouter un nouveau compte</a>
+                    @endisset
+
 
 
 
@@ -44,21 +48,30 @@
 
                 <table>
                 @isset($regions)
+                <tr>
+                    <th>Id de la région</th>
+                    <th>Libellé de la région</th>
+                    <th>Nom du délégué de la région</th>
+                  </tr>
                     @foreach ($regions as $region)
                         <tr>
                             <td>{{$region->idRegion}}</td>
 
-                            <td>
-                                {{$region->libelleRegion}}
+                            <td><a href="{{url()->current()}}/{{$region->idRegion}}">
+                                {{$region->libelleRegion}}</a>
                             </td>
                             <td>{{$region->nomDelegueRegion}}</td>
-                                <td><a href="{{url()->current()}}/{{$region->idRegion}}">voir plus</a></td>
+                            {{-- <td><a href="{{url()->current()}}/{{$region->idRegion}}">voir plus</a></td> --}}
 
                         </tr>
                     @endforeach
                 @endisset
 
                 @isset($visiteurs)
+                <tr>
+                    <th>Id du visiteur</th>
+                    <th>Nom du visiteur</th>
+                  </tr>
                     @foreach($visiteurs as $visiteur)
                         <tr>
                             <td>
@@ -67,13 +80,20 @@
                             <td>
                                 {{$visiteur->nomVisiteur}}
                             </td>
-                                <td><a href="{{url()->current()}}/{{$visiteur->idVisiteur}}">voir plus</a></td>
+                                <td><a href="{{url()->current()}}/{{$visiteur->idVisiteur}}">voir les primes</a></td>
+                                <td><a href="{{url()->current()}}/{{$visiteur->idVisiteur}}/update">Modifier</a></td>
 
                         </tr>
                     @endforeach
                 @endisset
 
                 @isset($primes)
+                <tr>
+                    <th>Id de la prime</th>
+                    <th>Date de la prime</th>
+                    <th>Description de la prime </th>
+                    <th>Montant de la prime</th>
+                  </tr>
                     @foreach ($primes as $prime)
                         <tr>
                             <td>{{$prime->idPrime}}</td>
@@ -86,12 +106,19 @@
                 @endisset
 
                 @isset($secteurs)
+                <tr>
+                    <th>Id du secteur</th>
+                    <th>Libellé du secteur</th>
+                    <th>Nom du responsable du secteur</th>
+                  </tr>
                     @foreach ($secteurs as $secteur)
+
                     <tr>
                         <td>{{$secteur->idSecteur}}</td>
-                        <td>{{$secteur->libelleSecteur}}</td>
+                        <td><a href="/home/{{$secteur->idSecteur}}">{{$secteur->libelleSecteur}}</a></td>
+
                         <td>{{$secteur->nomResponsable}}</td>
-                        <td><a href="/home/{{$secteur->idSecteur}}">voir plus</a></td>
+                        {{-- <td><a href="/home/{{$secteur->idSecteur}}">voir plus</a></td> --}}
                     </tr>
                     @endforeach
                 @endisset
