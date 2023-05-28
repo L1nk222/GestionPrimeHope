@@ -29,13 +29,9 @@
                     @isset($primes)
                     <a href="{{url()->current()}}/add">Nouvelle prime</a>
                     @endisset
-                    {{-- @isset($regions)
-                    {{$regions[0]->idSecteur}}
-                    @endisset --}}
-                    @empty($secteurs)
-                    <a href="{{url()->previous()}}"><=</a>
-                    @endempty
-
+                    @isset($primes)
+                    <a href="{{ url(substr(request()->url(), 0, strrpos(request()->url(), '/'))) }}">Revenir en arrière</a>
+                    @endisset
                     <form action="{{ url()->current() }}" method="GET">
                         <input type="text" name="term" placeholder="Rechercher...">
                         <button type="submit">Rechercher</button>
