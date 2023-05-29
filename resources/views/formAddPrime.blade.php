@@ -30,7 +30,12 @@
 
                         <div class="form-group">
                             <label for="description">Description :</label>
-                            <textarea id="description" name="description"  class="form-control" rows="5" required>@isset($prime){{$prime->descriptionPrime}}@endisset</textarea>
+                            <textarea id="description" name="description"  class="form-control @error('description') is-invalid @enderror"" rows="5" required>@isset($prime){{$prime->descriptionPrime}}@endisset</textarea>
+                            @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>Description trop longue</strong>
+                            </span>
+                        @enderror
                         </div>
 
                         @isset($prime)

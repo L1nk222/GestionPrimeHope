@@ -28,7 +28,12 @@
 
                         <div class="form-group">
                             <label for="email">Adresse email :</label>
-                            <input type="text" id="email" name="email" class="form-control"@isset($user) value="{{$user->email}}" @endisset required>
+                            <input type="text" id="email" name="email" class="form-control  @error('email') is-invalid @enderror"@isset($user) value="{{$user->email}}" @endisset required>
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         </div>
 
                         <div class="form-group">

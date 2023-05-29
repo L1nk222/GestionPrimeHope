@@ -26,7 +26,7 @@ class visiteur extends Model
     }
 
     public function primes(){
-        return $this->hasMany(Prime::class, 'idVisiteur','idVisiteur');
+        return $this->hasMany(prime::class, 'idVisiteur','idVisiteur');
     }
 
 
