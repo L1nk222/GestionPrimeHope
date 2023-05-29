@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
@@ -16,22 +16,27 @@
 
                     {{ __('You are logged in!') }}
                 </div>
-            </div>
+            </div> --}}
             <div class="card">
-                Nom du visiteur:{{auth()->user()->visiteur->nomVisiteur}}
-                <br>
-                Region:{{auth()->user()->visiteur->region->libelleRegion}}
-                <br>
-               ceci sera la page des prime du visiteur qui se connecte
-               <br>
+                <div class="card-header">
+                    <div>Prime de: {{auth()->user()->visiteur->nomVisiteur}}</div>
+                    <div>Région:{{auth()->user()->visiteur->region->libelleRegion}}</div>
+                </div>
+
+
                <table>
                @isset($primes)
+               <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Montant</th>
+               </tr>
                     @foreach ($primes as $prime)
                         <tr>
                             <td>{{$prime->idPrime}}</td>
                             <td>{{$prime->datePrime}}</td>
                             <td>{{$prime->descriptionPrime}}</td>
-
                             <td>{{$prime->montantPrime}}</td>
                         </tr>
                     @endforeach
