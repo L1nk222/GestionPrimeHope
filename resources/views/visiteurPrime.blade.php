@@ -20,17 +20,17 @@
             <div class="card">
                 <div class="card-header">
                     <div>Prime de: {{auth()->user()->visiteur->nomVisiteur}}</div>
-                    <div>Région:{{auth()->user()->visiteur->region->libelleRegion}}</div>
+                    <div>Région: {{auth()->user()->visiteur->region->libelleRegion}}</div>
                 </div>
 
 
                <table>
                @isset($primes)
                <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Montant</th>
+                <th>Id de la prime</th>
+                <th>Date de la prime</th>
+                <th>Description de la prime</th>
+                <th>Montant de la prime</th>
                </tr>
                     @foreach ($primes as $prime)
                         <tr>
