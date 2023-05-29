@@ -25,4 +25,10 @@ class visiteur extends Model
         return $this->belongsTo(User::class,'idVisiteur','idVisiteur');
     }
 
+    public function primes(){
+        return $this->hasMany(Prime::class, 'idVisiteur','idVisiteur');
+    }
+
+
+
 }

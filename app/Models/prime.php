@@ -14,6 +14,10 @@ class prime extends Model
     protected $fillable= ['idPrime','datePrime','montantPrime','descriptionPrime','idVisiteur'];
     protected $table = 'prime';
 
+    public function visiteur(){
+        return $this->belongTo(Visiteur::class,'idVisiteur','idVisiteur');
+    }
+
 /*public function visiteur()
 {
 return $this->hasOne(visiteur::class, "Code","idVisiteur");

@@ -124,6 +124,12 @@ class RegionController extends Controller
 
         $visiteur=visiteur::find($request->idVisiteur);
         $user=User::find($visiteur->user->id);
+
+        $primes=$visiteur->primes;
+
+        foreach ($primes as $prime) {
+           $prime->delete();
+        }
         $user->delete();
         $visiteur->delete();
 
