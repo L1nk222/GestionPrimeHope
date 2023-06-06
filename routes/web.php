@@ -21,18 +21,10 @@ Route::get('/login', 'App\Http\Controllers\Auth\LoginController@showLoginForm')-
 
 Auth::routes();
 
-Route::get('/secteur', [App\Http\Controllers\SecteurController::class, 'showAll'])->name('secteur');
-//Route::get('/region', [App\Http\Controllers\RegionController::class, 'showAll'])->name('region');
-Route::get('/visiteur', [App\Http\Controllers\VisiteurController::class, 'showAll'])->name('visiteur');
-Route::get('/prime');
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::middleware('redirect.user')->group(function (){
     Route::get('/home/{secteur?}/{region?}/{visiteur?}', [App\Http\Controllers\HomeController::class, 'show'])
     ->where(['visiteur'=>'[0-9]+'])
     ->name('home');
-
-    // Route::get('/region/{visiteur?}',[App\Http\Controllers\HomeController::class, 'show'])->name('homeDelegue');
 
     //route pour ajouter une prime
     Route::get('/home/{secteur}/{region}/{visiteur}/add',[App\Http\Controllers\VisiteurController::class, 'showForm'])->name('formAddPrime');
@@ -62,9 +54,6 @@ Route::middleware('redirect.user')->group(function (){
     Route::get('/home/{secteur}/{region}/{visiteur}/delete',[App\Http\Controllers\RegionController::class,'showFormDeleteUser'])->name('deleteUserForm');
     Route::post('/home/{secteur}/{region}/{visiteur}/delete',[App\Http\Controllers\RegionController::class,'deleteUser'])->name('deleteUserStore');
 
-    // Route::get('/home/{secteur?}/{region?}/{visiteur?}/',[App\Http\Controllers\HomeController::class, 'recherche'])
-    // ->where(request()->has('term'))
-    // ->name('recherche');
 });
 
 //Route par défaut des visiteurs

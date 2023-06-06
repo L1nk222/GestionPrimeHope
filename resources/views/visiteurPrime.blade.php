@@ -18,6 +18,7 @@
                 </div>
             </div> --}}
             <div class="card">
+                @isset(auth()->user()->visiteur)
                 <div class="card-header">
                     <div>Prime de: {{auth()->user()->visiteur->nomVisiteur}}</div>
                     <div>Région: {{auth()->user()->visiteur->region->libelleRegion}}</div>
@@ -42,6 +43,10 @@
                     @endforeach
                 @endisset
             </table>
+            @endisset
+            @empty(auth()->user()->visiteur)
+            <a href="{{url()->previous()}}" class="btn btn-secondary">Vous vous étes perdu appuyer ici pour revenir en lieu sur </a>
+            @endempty
             </div>
         </div>
     </div>

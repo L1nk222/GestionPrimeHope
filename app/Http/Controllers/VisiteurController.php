@@ -18,11 +18,6 @@ class VisiteurController extends Controller
      * @param mixed $idRegion
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function showAll(){
-       // $region = region::find($idRegion);
-        $visiteurs=visiteur::all();
-        return view('visiteur',['visiteurs' => $visiteurs]);
-    }
 
     public function showForm(Request $request){
         $visiteur = visiteur::find($request->segment(4));
@@ -62,10 +57,16 @@ class VisiteurController extends Controller
     }
 
     public function showVisiteurPrime(){
-        $visiteur=auth()->user()->visiteur;
-        $primes=prime::where('idVisiteur',$visiteur->idVisiteur)->get();
-        return view('visiteurPrime',['primes' => $primes]);
-    }
+        if (isset(auth()->user()->visiteur)) {
+            $visiteur=auth()->user()->visiteur;
+            $primes=prime::where('idVisiteur',$visiteur->idVisiteur)->get();
+            return view('visiteurPrime',['primes' => $primes]);
+            }
+            else {
+                return view('visiteurPrime');
+            }
+        }
+
 
     public function updatePrimeForm(Request $request){
         $visiteur = visiteur::find($request->segment(4));

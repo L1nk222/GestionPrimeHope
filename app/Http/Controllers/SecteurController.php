@@ -27,10 +27,6 @@ class SecteurController extends Controller
         return view('secteur',['secteurAll' => $secteurAll]);
     }
 
-    public function show()
-    {
-
-    }
 
 
 }
